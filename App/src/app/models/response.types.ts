@@ -1,9 +1,13 @@
-export type ApiResponse = {
+export type LoginResponse = {
     message: string;
-    token?: string;
-    exp?: number;
+    token: string;
+    exp: number;
 }
 
-export type WishlistResponse = {
+export type MovieId = {
     movie_id: number;
+}
+
+export type MessageResponse = {
+    message: string;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ApiResponse, WishlistResponse } from "src/app/models/response.types";
+import { MessageResponse, MovieId} from "src/app/models/response.types";
 import { Observable } from "rxjs";
 import { Movie } from "src/app/models/movie.types";
 import { MoviesService } from 'src/app/services/movies/movies.service';
@@ -18,7 +18,7 @@ export class WishlistService {
     constructor(private http: HttpClient, private moviesService: MoviesService) {
     }
 
-    addWish(movie: Movie): Observable <ApiResponse> {
+    addWish(movie: Movie): Observable <MessageResponse> {
       this._token = localStorage.getItem(this._key);
       const header = new  HttpHeaders({
         'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export class WishlistService {
         movie_id: movie.id
       }
 
-      return this.http.post<ApiResponse>('http://localhost:3000/api/wishlist/addWish', newMovie, {headers: header});
+      return this.http.post<MessageResponse>('http://localhost:3000/api/wishlist/addWish', newMovie, {headers: header});
     };
 
     removeWish(movie: Movie ){
@@ -41,30 +41,25 @@ export class WishlistService {
         movie_id: movie.id
       }
 
-      return this.http.post<ApiResponse>('http://localhost:3000/api/wishlist/removeWish', delMovie, {headers: header});
+      return this.http.post<MessageResponse>('http://localhost:3000/api/wishlist/removeWish', delMovie, {headers: header});
     };
 
-    returnWishlist(): Observable <WishlistResponse[]> {
+    getWishlistedIds(): Observable <MovieId[]> {
       this._token = localStorage.getItem(this._key);
       const header = new  HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._token}`
       });
 
-      return this.http.get<WishlistResponse[]>('http://localhost:3000/api/wishlist/getWishlist', {headers: header});
+      return this.http.get<MovieId[]>('http://localhost:3000/api/wishlist/getWishlist', {headers: header});
     };
 
     initWishlist(): void {
       console.log("initialising wishlist");
       this._myWishlist = [];
-      let wishlist: WishlistResponse[] = [];
-      this.returnWishlist().subscribe(res => {
-        if (res === null) {
-          return;
-        }
-        wishlist = res;
-        for (let i = 0; i < wishlist.length; i++) {
-          this.moviesService.getMovie(wishlist[i].movie_id).subscribe(res => {
+      this.getWishlistedIds().subscribe(movieIds => {
+        for (let i = 0; i < movieIds.length; i++) {
+          this.moviesService.getMovie(movieIds[i].movie_id).subscribe(res => {
             this._myWishlist.push(res);
           });
         }

@@ -8,11 +8,10 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { MovieListComponent } from './components/movies/movie-list.component';
 import { MovieComponent } from './components/movies/movie.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
-import { MoviesRouteService } from './services/auth/moviesGuard.service';
 import { AuthRouteService } from './services/auth/authGuard.service';
 
 const appRoutes: Routes = [
-  { path: '', component: LayoutComponent, canActivate: [MoviesRouteService], 
+  { path: '', component: LayoutComponent, canActivate: [AuthRouteService], 
     children: [
       { path: 'movies/:movie_id', component: MovieComponent},
       { path: 'movies', component: MovieListComponent, data: { title: "MyFavMovies - Movies List" } },
@@ -20,8 +19,8 @@ const appRoutes: Routes = [
       { path: '', component: HomeComponent, data: { title: "MyFavMovies"}},
     ]
   },
-  { path: 'login', component: LoginComponent, data: { title: "MyFavMovies-Login"}, canActivate: [AuthRouteService] },
-  { path: 'register', component: RegisterComponent, data: { title: "MyFavMovies-Register"}, canActivate: [AuthRouteService] },
+  { path: 'login', component: LoginComponent, data: { title: "MyFavMovies-Login"}},
+  { path: 'register', component: RegisterComponent, data: { title: "MyFavMovies-Register"}},
   { path: '**', component: PageNotFoundComponent, data: { title: "PageNotFound"} },
 ]
 

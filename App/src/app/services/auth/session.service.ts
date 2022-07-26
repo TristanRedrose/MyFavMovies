@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Users } from "src/app/models/users.types";
 import { HttpClient } from "@angular/common/http";
-import { ApiResponse } from "src/app/models/response.types";
+import { LoginResponse } from "src/app/models/response.types";
 import { map,Observable } from "rxjs";
 import { Router } from "@angular/router";
+import { Session } from "src/app/models/session.types";
 
 @Injectable ({
     providedIn: 'root'
@@ -11,19 +12,31 @@ import { Router } from "@angular/router";
 
 export class SessionService {
 
-    private _token: string | null = null;
-    private _key: string = 'Token';
-    private _expiry: number;
+    private _session: Session = {
+        token: null,
+        username: "",
+        validTo: null,
+    }
+
+    // Typescript issue with NodeJS.Timeout type
+    private _sessionTimer: any;
     
     constructor( private http: HttpClient, private router: Router) {}
 
+    setSession(session:Session): void {
+        this.setSessionTimer();
+        this._session = session;
+        localStorage.setItem('session', JSON.stringify(session));
+    }
+    
     logIn(user: Users): Observable <void>  {
-        return this.http.post<ApiResponse>("http://localhost:3000/api/auth/login", user).pipe(map((res: ApiResponse) => {
-            this._token = res.token;
-            this._expiry = res.exp;
-            localStorage.setItem(this._key, this._token);
-            localStorage.setItem("username", user.username);
-            localStorage.setItem("expiry", this._expiry.toString());
+        return this.http.post<LoginResponse>("http://localhost:3000/api/auth/login", user).pipe(map((res: LoginResponse) => {
+            const session = {
+                token: res.token,
+                username: user.username,
+                validTo: res.exp,
+            }
+            this.setSession(session);
         }));
     };
 
@@ -34,30 +47,11 @@ export class SessionService {
     };
 
     isLoggedIn(): boolean {
-        return !!localStorage.getItem("username");
+        return !!this._session.username;
     };
 
-    sessionTimer(): void {
-        this.initExpiry();
-        setTimeout(() => {this.logOut()}, (this._expiry - (Math.floor(Date.now() / 1000))) * 1000);
-        console.log((this._expiry - (Math.floor(Date.now() / 1000))) * 1000)
-    }
-
-    initExpiry(): void {
-        if (!this._expiry) {
-            this._expiry = parseInt(localStorage.getItem("expiry"));
-        }
-    }
-
-    isTokenExpired(): boolean {
-        if (localStorage.getItem("expiry")) {
-            let expiry: number = parseInt(localStorage.getItem("expiry"));
-            if (Math.floor(Date.now() / 1000) < expiry) {
-                console.log("token valid")
-                return false;
-            }
-        }
-        console.log("token expired");
-        return true;
-    }
+    setSessionTimer(): void {
+        clearTimeout(this._sessionTimer);
+        this._sessionTimer = setTimeout(() => this.logOut(), (this._session.validTo - (Math.floor(Date.now() / 1000))) * 1000);
+    }   
 }

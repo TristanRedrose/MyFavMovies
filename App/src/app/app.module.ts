@@ -21,7 +21,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { LoginComponent } from './components/auth/login.component';
 import { RegisterComponent } from './components/auth/register.component';
-import { MoviesRouteService } from './services/auth/moviesGuard.service';
 import { AuthRouteService } from './services/auth/authGuard.service';
 
 @NgModule({
@@ -51,7 +50,7 @@ import { AuthRouteService } from './services/auth/authGuard.service';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [MoviesRouteService, AuthRouteService],
+  providers: [AuthRouteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
