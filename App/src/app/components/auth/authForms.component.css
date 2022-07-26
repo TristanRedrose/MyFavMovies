@@ -36,6 +36,15 @@ input {
     color: whitesmoke;
     font-size: 16px;
     font-weight: 600;
+    cursor: pointer;
+    border: none;
+    box-shadow: -2px 2px 16px 1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -2px 2px 8px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 2px 8px 0px rgba(0,0,0,0.75);
+}
+
+.submit-button:active {
+    box-shadow: none;
 }
 
 .bottom-text {
