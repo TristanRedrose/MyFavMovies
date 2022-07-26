@@ -1,0 +1,57 @@
+.container {
+    position: relative;
+    box-sizing: border-box;
+    margin: 30px auto;
+    padding: 48px;
+    max-width: 90%;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px black solid;
+    border-radius: 8px;
+    background-color: lightgray;
+    background-image: url(https://image.shutterstock.com/image-photo/popcorn-cardboard-box-isolated-on-260nw-1276790326.jpg);
+}
+
+.container::before {
+    content: "";
+    height: 100%;
+    width: 100%;
+    opacity: 0.3;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: black;
+    background-size: cover;
+    z-index: 1;
+}
+
+header {
+    color: white;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.side-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.wishlist-text {
+    color: whitesmoke;
+    margin-right: 16px;
+}
+
+@media only screen and (max-width: 750px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        padding: 24px;
+    }
+}

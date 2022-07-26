@@ -1,0 +1,12 @@
+<p-sidebar [(visible)]="display" position="right" (onHide)="changeSidebar()">
+    <p class="menu-text">Select page:</p>
+    <div *ngIf="!hasRoute('/')" class="link-box">
+        <a routerLink="/">Home</a>
+    </div>
+    <div *ngIf="!hasRoute('/movies')" class="link-box">
+        <a routerLink="/movies">Movies</a>
+    </div>
+    <div *ngIf="!hasRoute('/wishlist')" class="link-box">
+        <a routerLink="/wishlist">Wishlist: {{ wishlist.length }}</a>
+    </div>
+</p-sidebar>

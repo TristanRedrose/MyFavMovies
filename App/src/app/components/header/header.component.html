@@ -1,0 +1,15 @@
+<div class="container">
+    <header>
+        <h1>{{ title }}</h1>
+    </header>
+    <div class="side-container">
+        <h3 class="wishlist-text">Wishlist: {{ wishlist.length }}</h3>
+        <app-button 
+        color="blue" 
+        text="Open" 
+        [ngStyle]="{ 'z-index': 2 }"
+        (btnClick)="toggleSidebar()"
+        ></app-button>
+    </div>
+</div>
+

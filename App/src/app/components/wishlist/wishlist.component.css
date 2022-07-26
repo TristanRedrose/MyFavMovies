@@ -1,0 +1,128 @@
+.page-name {
+    text-align: center;
+    color: lightgray;
+    margin-bottom: 24px;
+}
+
+
+.movies-container {
+    width: 80%;
+    margin: 0px auto;
+    align-self: center;
+}
+
+.movie-container {
+    height: 180px;
+    border-radius: 8px;
+    border: 2px gold solid;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.image-box {
+    width: 30%;
+    background-image: url("https://img.freepik.com/free-vector/film-strip-background-with-clapper-board_1017-33456.jpg?t=st=1653381190~exp=1653381790~hmac=af207cd2875ef6cea218906ee7509c561c90eeb0506c5b4d86e797c87d4ed1d4&w=1380");
+    background-size: contain;
+}
+
+.content-box {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 8px 16px;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.button-box {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: tan;
+}
+
+.movie-image {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+h4,h3 {
+    margin: 8px 0px;
+}
+
+.select-box {
+    width: 30%;
+    margin: 0px auto 24px;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.pagination {
+    color: whitesmoke;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.form-div {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0px;
+}
+
+label {
+    color: whitesmoke;
+    margin-right: 16px;
+}
+
+#page {
+    width: 120px;
+    border-radius: 4px;
+    padding: 2px;
+    margin-right: 16px;
+}
+
+.error-div, .loading-screen {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    color: whitesmoke;
+}
+
+.loading-screen {
+    margin-bottom: 100px;
+}
+
+.error-btn {
+    margin: 0px 16px;
+}
+
+.side-btn {
+    margin-top: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+    .movies-container {
+        width: 90%;
+    }
+
+    .movie-container {
+        height: 135px;
+    }
+
+    .button-box {
+        width: 25%;
+    }
+
+    .image-box {
+        width: 25%;
+    }
+}

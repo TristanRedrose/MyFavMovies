@@ -1,0 +1,32 @@
+.body-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: whitesmoke;
+}
+
+.image-div {
+    width: 60%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 2px red solid;
+    margin: 24px 0px;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+h2, h3 {
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .image-div {
+        height: 250px;
+    }
+}

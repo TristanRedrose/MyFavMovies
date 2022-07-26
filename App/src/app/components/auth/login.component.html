@@ -1,0 +1,26 @@
+<div class="body-div">
+    <div class="form-box">
+        <h2>Login</h2>
+        <form class="login-form" [formGroup]="loginForm" (submit)="onSubmit()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Username..." formControlName="username">
+            <small *ngIf="loginForm.get('username').errors?.['required'] && 
+                loginForm.get('username').touched">
+                Username field cannot be empty.
+            </small>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Password..." formControlName="password">
+            <small *ngIf="loginForm.get('password').errors?.['required'] && loginForm.get('password').touched">
+                Password field cannot be empty.
+            </small>
+            <small *ngIf="errorMessage">{{ errorMessage }}</small>
+
+            <input class="submit-button" type="submit" value="Sign in">
+        </form>
+        <div class="bottom-text">
+            <p>Dont have an account?<p>
+            <p class="switch-link" (click)="goToRegister()">Register<p>
+        </div>
+    </div>
+</div>

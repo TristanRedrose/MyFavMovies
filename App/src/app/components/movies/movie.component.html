@@ -1,0 +1,41 @@
+<h2 *ngIf="isLoaded">{{ movie.title }}</h2>
+<div *ngIf="isLoaded" class="details-div">
+    <div class="image-div">
+        <img class="details-image" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" alt="movie-poster">
+    </div>
+    <div class="content-div">
+        <p>"{{ movie.overview }}"</p>
+        <h3>Release date: {{ movie.release_date }}</h3>
+        <h3>Production:
+            <span *ngFor="let company of movie.production_companies, let last = last">
+                <span *ngIf="!last">
+                    "{{ company.name }}" - {{ company.origin_country }},
+                </span>
+                <span *ngIf="last">
+                    "{{ company.name }}" - {{ company.origin_country }}
+                </span>
+            </span>
+        </h3>
+        <h3>Language: {{ movie.original_language }}</h3>
+        <h3>Rating {{ movie.vote_average }}</h3>
+        <h3>Genre: 
+            <span *ngFor="let genre of movie.genres, let last = last">
+                <span *ngIf="!last">
+                    {{ genre.name }},
+                </span>
+                <span *ngIf="last">
+                    {{ genre.name }}
+                </span>
+            </span>
+        </h3>
+        <h3>Budget: {{ movie.budget }}$</h3>
+        <h3>Revenue: {{ movie.revenue }}$</h3>
+    </div>
+</div>
+<div *ngIf="gotError" class="error-div">
+    <h1>Oops, something went wrong while getting the movie.</h1>
+    <div>
+        <app-button class="error-btn" color="blue" text="Try again" (btnClick)="refresh()"></app-button>
+        <app-button class="error-btn" color="blue" text="Return" (btnClick)="goBack()"></app-button>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="body-div">
+    <div class="user-div">
+        <h4>{{ username }}</h4>
+        <a (click)="logOut()">Log out</a>
+    </div>
+    <app-header (sidebarEvent)="changeDisplay()"></app-header>
+    <app-sidebar [display]="display" (sideCloseEvent)="changeDisplay()"></app-sidebar>
+    <div class="main-content">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+</div>

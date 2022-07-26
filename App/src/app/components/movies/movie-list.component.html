@@ -1,0 +1,57 @@
+<div *ngIf="showLoading" class="loading-screen">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<div *ngIf="!showLoading">
+    <div *ngIf="!gotError" class="movies-container">
+        <div class="page-name">
+            <h2>Movies</h2>
+        </div>
+        <div class="movie-container" *ngFor="let movie of movies">
+            <div [ngClass]=" movie.isWishlisted ? 'color-box-active' : 'color-box' ">
+            </div>
+            <div class="image-box">
+                <img class="movie-image" src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" alt="movie-image">
+            </div>
+            <div class="content-box">
+                <div>
+                    <h3>{{ movie.title }}</h3>
+                    <h4>{{ movie.release_date }}</h4>
+                </div>
+                <div>
+                    <h4>Language: <span>{{ movie.original_language }}</span></h4>
+                    <h4>Rating: <span>{{ movie.vote_average }}</span></h4>
+                </div>
+            </div>
+            <div class="button-box">
+                <a routerLink="/movies/{{ movie.id }}">
+                    <app-button class="side-btn"  color="green" text="Details"></app-button>
+                </a>
+                    <app-button class="side-btn"  *ngIf="!movie.isWishlisted"color="navy" text="Wishlist" (btnClick)="addWish(movie)"></app-button>
+                    <app-button class="side-btn" *ngIf="movie.isWishlisted" color="navy" text="Remove" (btnClick)="removeWish(movie)"></app-button>
+            </div>
+            <div [ngClass]=" movie.isWishlisted ? 'color-box-active' : 'color-box' ">
+            </div>
+        </div>
+        <div>
+            <h3 class="pagination">Page {{ page }} of {{ total_pages }}</h3>
+            <div class="form-div">
+                <form (ngSubmit)="goToPage(inputPage)">
+                    <label for="page">Go to page:</label>
+                    <input type="number" name="pageNum" id="page" placeholder="page-number" min="1" max="{{total_pages}}" [(ngModel)]="inputPage">
+                    <app-button type="submit" color="red" text="Go"></app-button>
+                </form>
+            </div>
+        </div>
+        <div class="select-box">
+            <app-button *ngIf="showButton(1)" color="blue" text="<< Previous" (btnClick)="goToPrevPage()"></app-button>
+            <app-button *ngIf="showButton(total_pages)" color="blue" text="Next >>" (btnClick)="goToNextPage()"></app-button>
+        </div>
+    </div>
+    <div *ngIf="gotError" class="error-div">
+        <h1>Oops, something went wrong while getting the movies-list.</h1>
+        <div>
+            <app-button class="error-btn" color="blue" text="Try again" (btnClick)="refresh()"></app-button>
+            <app-button class="error-btn" color="blue" text="Return" (btnClick)="goBack()"></app-button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+.body-div {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main-content {
+    height: fit-content;
+    min-height: 300px;
+}
+
+.user-div {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    color: whitesmoke;
+}
+
+a {
+    margin: 0px 16px;
+    cursor: pointer;
+}
+
+a:hover {
+    color: blueviolet;
+}
+

@@ -1,0 +1,37 @@
+<div class="body-div">
+    <div class="form-box">
+        <h2>Register</h2>
+        <form class="login-form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Username..." formControlName="username">
+            <small *ngIf="registrationForm.get('username').errors?.['required'] && registrationForm.get('username').touched">
+                Username field cannot be empty
+            </small>
+            <small *ngIf="errorMessage">{{ errorMessage }}</small>
+
+            <div class="login-form" formGroupName="passwordsInput">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Password..." formControlName="password">
+                <small *ngIf="registrationForm.get('passwordsInput.password').errors?.['required'] && 
+                    registrationForm.get('passwordsInput.password').touched">
+                    Password field cannot be empty
+                </small>
+
+                <label for="password">Confirm password:</label>
+                <input type="password" id="confirm" placeholder="Confirm password..." formControlName="confirm">
+                
+                <small *ngIf="!passwordMatch">Passwords must match.</small>
+                <small *ngIf="registrationForm.get('passwordsInput.confirm').errors?.['required'] && 
+                    registrationForm.get('passwordsInput.confirm').touched">
+                    Confirm field cannot be empty.
+                </small>
+            </div>
+            
+            <input class="submit-button" type="submit" value="Register">
+        </form>
+        <div class="bottom-text">
+            <p>Already have an account?<p>
+            <p class="switch-link" (click)="goToLogin()">Sign in</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.image-div {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    height: 60%;
+    width: 80%;
+    object-fit: contain;
+}
+
+a {
+    margin-top: 24px;
+}
