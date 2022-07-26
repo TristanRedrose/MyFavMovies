@@ -14,7 +14,7 @@ class UserStore implements IUserStore {
     };
 
     async addUser(username:string, password:string): Promise<User> {
-        const queryResults = await pool.query(`INSERT INTO users (username, password) VALUES ($1, $2) RETURNING * FROM users WHERE username = $1`,[username, password]);
+        const queryResults = await pool.query(`INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *`,[username, password]);
         const user = queryResults.rows[0];
         return user;
     };
