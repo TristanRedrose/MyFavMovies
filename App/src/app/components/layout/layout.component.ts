@@ -28,12 +28,10 @@ export class LayoutComponent implements OnInit {
     if (this.sideIsOpen === "closed") {
       this.display = true;
       this.sideIsOpen= "open";
-      console.log(this.sideIsOpen);
     }
     else if (this.sideIsOpen === "open") {
       this.display = false;
       this.sideIsOpen= "closed";
-      console.log(this.sideIsOpen);
     }
   }
 

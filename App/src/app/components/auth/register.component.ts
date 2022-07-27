@@ -42,7 +42,6 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit(): void {
-        console.log(this.registrationForm)
         this.registrationForm.markAllAsTouched();
         if (this.registrationForm.get('passwordsInput.password').errors !== null 
             || this.registrationForm.get('username').errors !== null) {

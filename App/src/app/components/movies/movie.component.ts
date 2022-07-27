@@ -31,7 +31,6 @@ export class MovieComponent {
         this.service.getMovie(id).subscribe(
             (res: Movie) => {
                 this.movie = res;
-                console.log(res);
                 this.isLoaded = true;
                 this.title.setTitle(this.movie.title)
             },

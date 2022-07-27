@@ -31,7 +31,6 @@ export class MovieListComponent implements OnInit {
   }
 
   goToPage(page: number): void {
-    console.log(`Navigating to page ${page}`);
     if (page < 1) {
       alert('Page must be at least 1!');
       return;
@@ -64,7 +63,6 @@ export class MovieListComponent implements OnInit {
       (res: MovieListResponse) => {
         this.movies = res.results;
         this.total_pages = res.total_pages;
-        console.log(res);
         window.scroll(0,0);
         this.movies.forEach(movie => {
           if (this.isWishlisted(movie.id)) {
@@ -82,7 +80,6 @@ export class MovieListComponent implements OnInit {
       this.service.getMoviesList(1).subscribe(
         (res: MovieListResponse) => {
           this.total_pages = res.total_pages;
-          console.log(this.total_pages);
           this.getParam();
       })
     }
@@ -93,7 +90,6 @@ export class MovieListComponent implements OnInit {
 
   getParam(): void {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       if (params['page'] === undefined) {
         this.page = 1;
         this.getMovies(this.page);
@@ -139,14 +135,12 @@ export class MovieListComponent implements OnInit {
 
   addWish(movie: Movie): void {
     this.wishlistService.addWish(movie).subscribe(res => {
-      console.log(res.message);
       this.wishlistService.addMovieWish(movie);
     });
   }
 
   removeWish(movie: Movie): void {
     this.wishlistService.removeWish(movie).subscribe(res => {
-      console.log(res.message);
       this.wishlistService.removeMovieWish(movie);
     });
   }
