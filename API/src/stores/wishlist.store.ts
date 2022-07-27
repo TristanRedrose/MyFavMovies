@@ -2,20 +2,16 @@ import pool from "../config/db";
 import { Wishlist } from "../types/wishlist.types"
 
 interface IWishlistStore {
-    getWishlist: (user_id:number) => Promise<Wishlist[] | null>
+    getWishlist: (user_id:number) => Promise<Wishlist[]>
     wishExists: (user_id:number, movie_id:number) => Promise<boolean>
     addWish: (user_id:number, movie_id:number) => Promise<void>
     removeWish: (user_id:number, movie_id:number) => Promise<void>
 }
 
 class WishlistStore implements IWishlistStore {
-    async getWishlist(user_id: number): Promise<Wishlist[] | null> {
+    async getWishlist(user_id: number): Promise<Wishlist[]> {
         const queryResult = await pool.query('SELECT movie_id from wishlist WHERE user_id = $1', [user_id]);
-        if (queryResult.rowCount) {
-            return queryResult.rows
-        } 
-
-        return null;
+        return queryResult.rows
     };
 
     async wishExists(user_id: number, movie_id: number): Promise<boolean> {

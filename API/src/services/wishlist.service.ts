@@ -2,13 +2,13 @@ import wishlistStore from "../stores/wishlist.store";
 import { Wishlist } from "../types/wishlist.types";
 
 interface IWishlistService {
-    getWishlist:(user_id:number) => Promise<Wishlist[] | null>
+    getWishlist:(user_id:number) => Promise<Wishlist[]>
     addWish:(user_id:number, movie_id:number) => Promise<boolean>
     removeWish:(user_id:number, movie_id:number) => Promise<boolean>
 }
 
 class WishlistService implements IWishlistService {
-    async getWishlist(user_id: number): Promise<Wishlist[] | null> {
+    async getWishlist(user_id: number): Promise<Wishlist[]> {
         const wishlist = await wishlistStore.getWishlist(user_id);
         return wishlist;
     }
@@ -16,7 +16,7 @@ class WishlistService implements IWishlistService {
     async addWish(user_id: number, movie_id: number):Promise<boolean> {
         const wishExists = await wishlistStore.wishExists(user_id,movie_id);
         if (wishExists) {
-            return false
+            return false;
         }
 
         await wishlistStore.addWish(user_id, movie_id);

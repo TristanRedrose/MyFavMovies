@@ -12,12 +12,18 @@ export interface IWishlistController {
 class WishlistController implements IWishlistController {
     async getWishlist(req: WishlistRequest, res: Response): Promise<Response> {
         const user_id = decodeToken(req.token);
+        if (!user_id) {
+            return res.status(403).json({message: 'Cannot determine user id'});
+        }
         const wishlist = await wishlistService.getWishlist(user_id);
         return res.json(wishlist)
     }
 
     async addWish(req: WishlistRequest, res: Response): Promise<Response> {
         const user_id = decodeToken(req.token);
+        if (!user_id) {
+            return res.status(403).json({message: 'Cannot determine user id'});
+        }
         const wishAdded = await wishlistService.addWish(user_id, req.movie_id);
         if (wishAdded) {
             return res.status(200).json({message: 'Movie added to wishlist'});
@@ -28,6 +34,9 @@ class WishlistController implements IWishlistController {
 
     async removeWish(req: WishlistRequest, res: Response): Promise<Response> {
         const user_id = decodeToken(req.token);
+        if (!user_id) {
+            return res.status(403).json({message: 'Cannot determine user id'});
+        }
         const wishRemoved = await wishlistService.removeWish(user_id, req.movie_id);
         if (wishRemoved) {
             return res.status(200).json({message: 'Movie removed from wishlist'});
