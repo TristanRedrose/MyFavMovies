@@ -23,6 +23,10 @@ export class LoginComponent implements OnInit {
             username: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required),     
         })
+
+        if (this.sessionService.session.username) {
+            this.router.navigate(['/']);
+        }
     }
 
     goToRegister(): void {

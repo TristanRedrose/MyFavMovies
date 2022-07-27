@@ -14,15 +14,15 @@ export class AuthRouteService implements CanActivate {
     }
     
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
-        if (this.sessionService.isLoggedIn) 
+        if (this.sessionService.isLoggedIn())
             return true;
 
-        const sessionString = localStorage.getItem("session");
+        const sessionString = localStorage.getItem("currentSession");
         if (sessionString) {
             const session: Session = JSON.parse(sessionString);
-            if (Math.floor(Date.now() / 1000) < (session.validTo)) {
+            if ((Math.floor(Date.now() / 1000)) < (session.validTo)) {
                 this.sessionService.setSession(session);
-                return true
+                return true;
             }
         }
 

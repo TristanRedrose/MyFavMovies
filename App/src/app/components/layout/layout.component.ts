@@ -51,6 +51,6 @@ export class LayoutComponent implements OnInit {
   }
 
   setUsername():void {
-    this.username = localStorage.getItem('username')
+    this.username = this.sessionService.session.username;
   }
 }

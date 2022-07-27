@@ -14,7 +14,7 @@ export class SessionService {
 
     private _session: Session = {
         token: null,
-        username: "",
+        username: null,
         validTo: null,
     }
 
@@ -24,9 +24,9 @@ export class SessionService {
     constructor( private http: HttpClient, private router: Router) {}
 
     setSession(session:Session): void {
-        this.setSessionTimer();
         this._session = session;
-        localStorage.setItem('session', JSON.stringify(session));
+        localStorage.setItem('currentSession', JSON.stringify(session));
+        this.setSessionTimer();
     }
     
     logIn(user: Users): Observable <void>  {
@@ -40,7 +40,16 @@ export class SessionService {
         }));
     };
 
+    clearSession() {
+        this._session = {
+            token: null,
+            username: null,
+            validTo: null,
+        }
+    }
+
     logOut(): void {
+        this.clearSession();
         localStorage.clear();
         console.log("logged out");
         this.router.navigate(["/login"]);
@@ -53,5 +62,9 @@ export class SessionService {
     setSessionTimer(): void {
         clearTimeout(this._sessionTimer);
         this._sessionTimer = setTimeout(() => this.logOut(), (this._session.validTo - (Math.floor(Date.now() / 1000))) * 1000);
-    }   
+    }
+    
+    get session() {
+        return this._session;
+    }
 }

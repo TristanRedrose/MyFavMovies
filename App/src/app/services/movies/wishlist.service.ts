@@ -4,6 +4,7 @@ import { MessageResponse, MovieId} from "src/app/models/response.types";
 import { Observable } from "rxjs";
 import { Movie } from "src/app/models/movie.types";
 import { MoviesService } from 'src/app/services/movies/movies.service';
+import { SessionService } from "../auth/session.service";
 
 @Injectable ({
  providedIn: 'root'
@@ -11,15 +12,14 @@ import { MoviesService } from 'src/app/services/movies/movies.service';
 
 export class WishlistService {
 
-    private _key: string = 'Token';
     private _token: string | null
     private _myWishlist: Movie[];
 
-    constructor(private http: HttpClient, private moviesService: MoviesService) {
+    constructor(private http: HttpClient, private moviesService: MoviesService, private sessionService: SessionService) {
     }
 
     addWish(movie: Movie): Observable <MessageResponse> {
-      this._token = localStorage.getItem(this._key);
+      this._token = this.sessionService.session.token;
       const header = new  HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._token}`
@@ -32,7 +32,7 @@ export class WishlistService {
     };
 
     removeWish(movie: Movie ){
-      this._token = localStorage.getItem(this._key);
+      this._token = this.sessionService.session.token;
       const header = new  HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._token}`
@@ -45,7 +45,7 @@ export class WishlistService {
     };
 
     getWishlistedIds(): Observable <MovieId[]> {
-      this._token = localStorage.getItem(this._key);
+      this._token = this.sessionService.session.token;
       const header = new  HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._token}`

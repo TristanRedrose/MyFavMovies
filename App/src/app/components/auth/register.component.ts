@@ -4,6 +4,7 @@ import { FormControl, FormGroup, RequiredValidator, Validators } from "@angular/
 import { Router } from "@angular/router";
 import { Users } from "src/app/models/users.types";
 import { RegistrationService } from "src/app/services/auth/registration.service";
+import { SessionService } from "src/app/services/auth/session.service";
 
 @Component ({
     selector: "app-register",
@@ -19,7 +20,8 @@ export class RegisterComponent implements OnInit {
     user: Users;
 
     constructor(private router:Router, 
-        private registrationService: RegistrationService) {}
+        private registrationService: RegistrationService,
+        private sessionService: SessionService) {}
 
     ngOnInit(): void {
         this.registrationForm = new FormGroup({
@@ -29,6 +31,10 @@ export class RegisterComponent implements OnInit {
             }),
             username: new FormControl(null, Validators.required),
         });
+
+        if (this.sessionService.session.username) {
+            this.router.navigate(['/']);
+        }
     }
 
     goToLogin(): void {
