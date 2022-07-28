@@ -51,6 +51,7 @@ export class SessionService {
     logOut(): void {
         this.clearSession();
         localStorage.clear();
+        clearTimeout(this._sessionTimer);
         console.log("logged out");
         this.router.navigate(["/login"]);
     };

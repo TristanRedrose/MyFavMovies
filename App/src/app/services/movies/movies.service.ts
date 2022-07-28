@@ -11,7 +11,6 @@ export class MoviesService {
   private _baseUrl:string = "https://api.themoviedb.org/3/movie"
   private _apiKey: string = environment.API_KEY
 
-
   constructor(private http: HttpClient) { }
 
   getMoviesList(page: number): Observable<MovieListResponse> {

@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { Movie } from "src/app/models/movie.types";
 import { MoviesService } from 'src/app/services/movies/movies.service';
 import { SessionService } from "../auth/session.service";
+import { environment } from "src/environments/environment";
 
 @Injectable ({
  providedIn: 'root'
@@ -12,6 +13,7 @@ import { SessionService } from "../auth/session.service";
 
 export class WishlistService {
 
+    private _rootURL = environment.wishlist_API
     private _token: string | null
     private _myWishlist: Movie[];
 
@@ -28,7 +30,7 @@ export class WishlistService {
         movie_id: movie.id
       }
 
-      return this.http.post<MessageResponse>('http://localhost:3000/api/wishlist/addWish', newMovie, {headers: header});
+      return this.http.post<MessageResponse>(`${this._rootURL}/wishlist/addWish`, newMovie, {headers: header});
     };
 
     removeWish(movie: Movie ){
@@ -41,7 +43,7 @@ export class WishlistService {
         movie_id: movie.id
       }
 
-      return this.http.post<MessageResponse>('http://localhost:3000/api/wishlist/removeWish', delMovie, {headers: header});
+      return this.http.post<MessageResponse>(`${this._rootURL}/api/wishlist/removeWish`, delMovie, {headers: header});
     };
 
     getWishlistedIds(): Observable <MovieId[]> {
@@ -51,7 +53,7 @@ export class WishlistService {
         'Authorization': `Bearer ${this._token}`
       });
 
-      return this.http.get<MovieId[]>('http://localhost:3000/api/wishlist/getWishlist', {headers: header});
+      return this.http.get<MovieId[]>(`${this._rootURL}/api/wishlist/getWishlist`, {headers: header});
     };
 
     initWishlist(): void {

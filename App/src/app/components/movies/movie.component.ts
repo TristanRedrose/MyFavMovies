@@ -25,7 +25,7 @@ export class MovieComponent {
 
     ngOnInit(): void {
         this.getMovie(this.movieId);
-      }
+    }
 
     getMovie(id: number) {
         this.service.getMovie(id).subscribe(
@@ -41,7 +41,7 @@ export class MovieComponent {
 
     refresh() {
         window.location.reload();
-      }
+    }
     
     goBack() {
         this.location.back();
